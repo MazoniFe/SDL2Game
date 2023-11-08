@@ -1,0 +1,17 @@
+C:\Users\lipem\source\repos\SDLC#\SDLC#\obj\Debug\net6.0\SDLC#.csproj.AssemblyReference.cache
+C:\Users\lipem\source\repos\SDLC#\SDLC#\obj\Debug\net6.0\SDLC#.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lipem\source\repos\SDLC#\SDLC#\obj\Debug\net6.0\SDLC#.AssemblyInfoInputs.cache
+C:\Users\lipem\source\repos\SDLC#\SDLC#\obj\Debug\net6.0\SDLC#.AssemblyInfo.cs
+C:\Users\lipem\source\repos\SDLC#\SDLC#\obj\Debug\net6.0\SDLC#.csproj.CoreCompileInputs.cache
+C:\Users\lipem\source\repos\SDLC#\SDLC#\bin\Debug\net6.0\SDLC#.exe
+C:\Users\lipem\source\repos\SDLC#\SDLC#\bin\Debug\net6.0\SDLC#.deps.json
+C:\Users\lipem\source\repos\SDLC#\SDLC#\bin\Debug\net6.0\SDLC#.runtimeconfig.json
+C:\Users\lipem\source\repos\SDLC#\SDLC#\bin\Debug\net6.0\SDLC#.dll
+C:\Users\lipem\source\repos\SDLC#\SDLC#\bin\Debug\net6.0\SDLC#.pdb
+C:\Users\lipem\source\repos\SDLC#\SDLC#\obj\Debug\net6.0\SDLC#.csproj.CopyComplete
+C:\Users\lipem\source\repos\SDLC#\SDLC#\obj\Debug\net6.0\SDLC#.dll
+C:\Users\lipem\source\repos\SDLC#\SDLC#\obj\Debug\net6.0\refint\SDLC#.dll
+C:\Users\lipem\source\repos\SDLC#\SDLC#\obj\Debug\net6.0\SDLC#.pdb
+C:\Users\lipem\source\repos\SDLC#\SDLC#\obj\Debug\net6.0\SDLC#.genruntimeconfig.cache
+C:\Users\lipem\source\repos\SDLC#\SDLC#\obj\Debug\net6.0\ref\SDLC#.dll
+C:\Users\lipem\source\repos\SDLC#\SDLC#\bin\Debug\net6.0\SixLabors.ImageSharp.dll
