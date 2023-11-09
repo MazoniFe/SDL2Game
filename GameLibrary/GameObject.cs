@@ -11,31 +11,25 @@ namespace SDLC_.GameLibrary
     internal class GameObject
     {
         private string name = "";
-        private Sprite sprite = new Sprite(General.Images_path.UNDEFINED);
+        public static double animationSpeed = 0.2;
         private Vector2 position;
+        private List<Animation> animations = new List<Animation>();
+        private Dictionary<General.Inputs, Animation> animationDictionary = new Dictionary<General.Inputs, Animation>();
+        private Animation currentAnimation = new Animation(Resources.GameObjects.UNDEFINED, Resources.Animation_State.IDLE);
 
-        public GameObject(General.GameObjects name, Vector2 position)
+        public GameObject(Resources.GameObjects name, Vector2 position)
         {
+            this.animationDictionary = Animations.GetAnimationDictionary(name);
+            this.animations = Animations.GetAnimations(name);
+            this.currentAnimation = new Animation(name, Resources.Animation_State.BOTTOM);
+            this.position = position;
+
             switch (name)
             {
-                case General.GameObjects.APPLE:
-                    this.sprite = new Sprite(General.Images_path.APPLE);
-                    this.name = "APPLE";
-                    break;
-                case General.GameObjects.ORANGE:
-                    this.sprite = new Sprite(General.Images_path.ORANGE);
-                    this.name = "ORANGE";
-                    break;
-                case General.GameObjects.BANANA:
-                    this.sprite = new Sprite(General.Images_path.BANANA);
-                    this.name = "BANANA";
-                    break;
-                default:
-                    this.sprite = new Sprite(General.Images_path.UNDEFINED);
-                    this.name = "UNDEFINED";
+                case Resources.GameObjects.PLAYER:
+                    this.name = "PLAYER";
                     break;
             }
-            this.position = position;
         }
 
         public string GetName()
@@ -43,19 +37,37 @@ namespace SDLC_.GameLibrary
             return this.name;
         }
 
-        public Sprite GetSprite()
-        {
-            return this.sprite;
-        }
-
         public Vector2 GetPosition()
         {
             return this.position;
         }
 
+        public Animation GetCurrentAnimation()
+        {
+            return this.currentAnimation;
+        }
+
+        public void SetCurrentAnimation(General.Inputs input)
+        {
+            this.currentAnimation = animationDictionary[input];
+        }
+
         public void SetPosition (float x, float y)
         {
             this.position = new Vector2(x, y);
+        }
+
+        public void UpdateAnimation(double deltaTime)
+        {
+            View.animationTimer += deltaTime;
+
+            if (View.animationTimer >= animationSpeed)
+            {
+                int currentFrameIndex = currentAnimation.GetCurrentFrameIndex();
+                currentFrameIndex = (currentFrameIndex + 1) % currentAnimation.GetFrameCount();
+                currentAnimation.SetCurrentFrameIndex(currentFrameIndex);
+                View.animationTimer = 0.0;
+            }
         }
 
     }

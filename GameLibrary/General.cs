@@ -8,9 +8,7 @@ namespace SDLC_.GameLibrary
 {
     internal class General
     {
-        public enum Images_path { APPLE, BANANA, ORANGE, UNDEFINED}
-        public enum GameObjects {APPLE, BANANA, ORANGE, UNDEFINED}
-
+        public enum Inputs { TOP, LEFT, RIGHT, BOTTOM }
         public static bool ObjectsAreEqual(Sprite current, Sprite previous)
         {
             if (current.GetTexture() != previous.GetTexture())

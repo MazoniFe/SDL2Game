@@ -1,10 +1,5 @@
 ﻿using SDL2;
 using SDLC;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SDLC_.GameLibrary
 {
@@ -16,6 +11,12 @@ namespace SDLC_.GameLibrary
 
         public static int spriteWidth = 64;
         public static int spriteHeight = 64;
+
+        private static double lastFrameTime = SDL.SDL_GetTicks();
+        public static double animationTimer = 0.0;
+        public static double currentFrameTime;
+        public static double deltaTime;
+
 
         const string TITLE = "Game TITLE";
 
@@ -55,6 +56,9 @@ namespace SDLC_.GameLibrary
 
         public static void Update()
         {
+            currentFrameTime = SDL.SDL_GetTicks();
+            deltaTime = (currentFrameTime - lastFrameTime) / 1000.0;
+            lastFrameTime = currentFrameTime;
 
             if (SDL.SDL_SetRenderDrawColor(View.renderer, 135, 206, 235, 255) < 0)
             {
@@ -67,28 +71,29 @@ namespace SDLC_.GameLibrary
                 Console.WriteLine($"There was an issue with clearing the render surface. {SDL.SDL_GetError()}");
             }
 
-            RenderGameObjects();
+            RenderGameObjects(deltaTime);
 
 
             // Switches out the currently presented render surface with the one we just did work on.
             SDL.SDL_RenderPresent(View.renderer);
         }
-        public static void RenderGameObjects()
+        public static void RenderGameObjects(double deltaTime)
         {
             foreach (GameObject obj in Program.gameObjects)
             {
+                obj.UpdateAnimation(deltaTime);
                 SDL.SDL_Rect destRect = new SDL.SDL_Rect
                 {
                     x = (int)obj.GetPosition().X, // Defina as coordenadas x apropriadas
                     y = (int)obj.GetPosition().Y, // Defina as coordenadas y apropriadas
-                    w = 64,  // Largura do sprite
-                    h = 64   // Altura do sprite
+                    w = spriteWidth,  // Largura do sprite
+                    h = spriteHeight   // Altura do sprite
                 };
-                SDL.SDL_RenderCopy(renderer, obj.GetSprite().texture, IntPtr.Zero, ref destRect);
+                SDL.SDL_RenderCopy(renderer, obj.GetCurrentAnimation().GetCurrentFrameTexture(), IntPtr.Zero, ref destRect);
+
             }
 
             SDL.SDL_RenderPresent(renderer);
         }
-
     }
 }

@@ -15,8 +15,8 @@ namespace SDLC
         {
             View.Init();
 
-            GameObject apple = new GameObject(General.GameObjects.ORANGE, new Vector2(50,50));
-            gameObjects.Add(apple);
+            GameObject player = new GameObject(Resources.GameObjects.PLAYER, new Vector2(50,50));
+            gameObjects.Add(player);
             while (View.running)
             {
 
@@ -28,22 +28,26 @@ namespace SDLC
                             View.running = false;
                             break;
                         case SDL.SDL_EventType.SDL_KEYDOWN:
-                            var currentPos = apple.GetPosition();
+                            var currentPos = player.GetPosition();
                             if (e.key.keysym.sym == SDL.SDL_Keycode.SDLK_w)
                             {
-                                apple.SetPosition(currentPos.X, currentPos.Y - 6);
+                                player.SetPosition(currentPos.X, currentPos.Y - 6);
+                                player.SetCurrentAnimation(General.Inputs.TOP);
                             }
                             else if (e.key.keysym.sym == SDL.SDL_Keycode.SDLK_a)
                             {
-                                apple.SetPosition(currentPos.X - 6, currentPos.Y);
+                                player.SetPosition(currentPos.X - 6, currentPos.Y);
+                                player.SetCurrentAnimation(General.Inputs.LEFT);
                             }
                             else if (e.key.keysym.sym == SDL.SDL_Keycode.SDLK_s)
                             {
-                                apple.SetPosition(currentPos.X, currentPos.Y + 6);
+                                player.SetPosition(currentPos.X, currentPos.Y + 6);
+                                player.SetCurrentAnimation(General.Inputs.BOTTOM);
                             }
                             else if (e.key.keysym.sym == SDL.SDL_Keycode.SDLK_d)
                             {
-                                apple.SetPosition(currentPos.X + 6, currentPos.Y);
+                                player.SetPosition(currentPos.X + 6, currentPos.Y);
+                                player.SetCurrentAnimation(General.Inputs.RIGHT);
                             }
                             break;
                     }
