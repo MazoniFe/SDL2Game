@@ -1,22 +1,39 @@
 {
-  "PLAYER_TOP_1": "\\Character\\TOP_1.png",
-  "PLAYER_TOP_2": "\\Character\\TOP_2.png",
-  "PLAYER_TOP_3": "\\Character\\TOP_3.png",
-  "PLAYER_TOP_4": "\\Character\\TOP_4.png",
-  "PLAYER_LEFT_1": "\\Character\\LEFT_1.png",
-  "PLAYER_LEFT_2": "\\Character\\LEFT_2.png",
-  "PLAYER_LEFT_3": "\\Character\\LEFT_3.png",
-  "PLAYER_LEFT_4": "\\Character\\LEFT_4.png",
-  "PLAYER_BOTTOM_1": "\\Character\\BOTTOM_1.png",
-  "PLAYER_BOTTOM_2": "\\Character\\BOTTOM_2.png",
-  "PLAYER_BOTTOM_3": "\\Character\\BOTTOM_3.png",
-  "PLAYER_BOTTOM_4": "\\Character\\BOTTOM_4.png",
-  "PLAYER_RIGHT_1": "\\Character\\RIGHT_1.png",
-  "PLAYER_RIGHT_2": "\\Character\\RIGHT_2.png",
-  "PLAYER_RIGHT_3": "\\Character\\RIGHT_3.png",
-  "PLAYER_RIGHT_4": "\\Character\\RIGHT_4.png",
-  "TEST_ORANGE": "\\Character\\orange.png",
-  "TEST_BANANA": "\\Character\\banana.png",
-  "TEST_APPLE": "\\Character\\apple.png",
-  "UNDEFINED": "\\Character\\undefined.png"
+  "GOKU": {
+    "IDLETOP_1": "\\GOKU\\IDLE_TOP_1.png",
+    "IDLELEFT_1": "\\GOKU\\IDLE_LEFT_1.png",
+    "IDLELEFT_2": "\\GOKU\\IDLE_LEFT_2.png",
+    "IDLEBOTTOM_1": "\\GOKU\\IDLE_BOTTOM_1.png",
+    "IDLEBOTTOM_2": "\\GOKU\\IDLE_BOTTOM_2.png",
+    "TOP_1": "\\GOKU\\TOP_1.png",
+    "TOP_2": "\\GOKU\\TOP_2.png",
+    "TOP_3": "\\GOKU\\TOP_3.png",
+    "TOP_4": "\\GOKU\\TOP_4.png",
+    "LEFT_1": "\\GOKU\\LEFT_1.png",
+    "LEFT_2": "\\GOKU\\LEFT_2.png",
+    "LEFT_3": "\\GOKU\\LEFT_3.png",
+    "LEFT_4": "\\GOKU\\LEFT_4.png",
+    "BOTTOM_1": "\\GOKU\\BOTTOM_1.png",
+    "BOTTOM_2": "\\GOKU\\BOTTOM_2.png",
+    "BOTTOM_3": "\\GOKU\\BOTTOM_3.png",
+    "BOTTOM_4": "\\GOKU\\BOTTOM_4.png",
+    "RIGHT_1": "\\GOKU\\RIGHT_1.png",
+    "RIGHT_2": "\\GOKU\\RIGHT_2.png",
+    "RIGHT_3": "\\GOKU\\RIGHT_3.png",
+    "RIGHT_4": "\\GOKU\\RIGHT_4.png"
+  },
+
+  "ENV": {
+    "GRASS_1": "\\environment\\1269.png",
+    "GROUND_1": "\\environment\\1253.png"
+  },
+
+  "FRUITS": {
+    "ORANGE": "\\GOKU\\orange.png",
+    "BANANA": "\\GOKU\\banana.png",
+    "APPLE": "\\GOKU\\apple.png"
+  },
+  "UNDEFINED": {
+    "UNDEFINED": "\\GOKU\\undefined.png"
+  }
 }

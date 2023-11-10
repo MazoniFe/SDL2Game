@@ -1,5 +1,6 @@
 ﻿using SDL2;
 using SDLC;
+using System.Numerics;
 
 namespace SDLC_.GameLibrary
 {
@@ -8,6 +9,9 @@ namespace SDLC_.GameLibrary
         public static IntPtr window;
         public static IntPtr renderer;
         public static bool running = false;
+
+        public static int WINDOW_WIDTH = 800;
+        public static int WINDOW_HEIGHT = 800;
 
         public static int spriteWidth = 64;
         public static int spriteHeight = 64;
@@ -18,24 +22,27 @@ namespace SDLC_.GameLibrary
         public static double deltaTime;
 
 
+        public static Camera camera = new Camera(Vector2.Zero);
+
         const string TITLE = "Game TITLE";
 
         public static void Init()
         {
+
             if (SDL.SDL_Init(SDL.SDL_INIT_VIDEO) < 0)
             {
                 Console.WriteLine($"There was an issue initilizing SDL. {SDL.SDL_GetError()}");
             }
 
-            // Create a new window given a title, size, and passes it a flag indicating it should be shown.
-            window = SDL.SDL_CreateWindow(TITLE, SDL.SDL_WINDOWPOS_UNDEFINED, SDL.SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL.SDL_WindowFlags.SDL_WINDOW_SHOWN);
+
+            window = SDL.SDL_CreateWindow(TITLE, SDL.SDL_WINDOWPOS_UNDEFINED, SDL.SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL.SDL_WindowFlags.SDL_WINDOW_SHOWN);
 
             if (window == IntPtr.Zero)
             {
                 Console.WriteLine($"There was an issue creating the window. {SDL.SDL_GetError()}");
             }
 
-            // Creates a new SDL hardware renderer using the default graphics device with VSYNC enabled.
+
             renderer = SDL.SDL_CreateRenderer(window,
                                                     -1,
                                                     SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED |
@@ -71,10 +78,10 @@ namespace SDLC_.GameLibrary
                 Console.WriteLine($"There was an issue with clearing the render surface. {SDL.SDL_GetError()}");
             }
 
-            RenderGameObjects(deltaTime);
+            RenderWorld();
+            RenderGameObjects(0.02);
 
 
-            // Switches out the currently presented render surface with the one we just did work on.
             SDL.SDL_RenderPresent(View.renderer);
         }
         public static void RenderGameObjects(double deltaTime)
@@ -82,18 +89,47 @@ namespace SDLC_.GameLibrary
             foreach (GameObject obj in Program.gameObjects)
             {
                 obj.UpdateAnimation(deltaTime);
+
+                Vector2 adjustedPosition = View.camera.GetAdjustedPosition(obj.GetPosition());
+
                 SDL.SDL_Rect destRect = new SDL.SDL_Rect
                 {
-                    x = (int)obj.GetPosition().X, // Defina as coordenadas x apropriadas
-                    y = (int)obj.GetPosition().Y, // Defina as coordenadas y apropriadas
-                    w = spriteWidth,  // Largura do sprite
-                    h = spriteHeight   // Altura do sprite
+                    x = (int)adjustedPosition.X,
+                    y = (int)adjustedPosition.Y,
+                    w = spriteWidth,
+                    h = spriteHeight
                 };
+
                 SDL.SDL_RenderCopy(renderer, obj.GetCurrentAnimation().GetCurrentFrameTexture(), IntPtr.Zero, ref destRect);
-
             }
-
-            SDL.SDL_RenderPresent(renderer);
         }
+
+        public static void RenderWorld()
+        {
+            World_Tile[,] map = Program.world.GetMap();
+            int tileWidth = 48;
+            int tileHeight = 48;
+
+            for (int i = 0; i < World.HEIGHT; i++)
+            {
+                for (int j = 0; j < World.WIDTH; j++)
+                {
+                    World_Tile tile = map[i, j];
+
+                    Vector2 adjustedPosition = View.camera.GetAdjustedPosition(new Vector2(j * tileWidth, i * tileHeight));
+
+                    SDL.SDL_Rect destRect = new SDL.SDL_Rect
+                    {
+                        x = (int)adjustedPosition.X,
+                        y = (int)adjustedPosition.Y,
+                        w = tileWidth,
+                        h = tileHeight
+                    };
+
+                    SDL.SDL_RenderCopy(renderer, tile.GetSprite().GetTexture(), IntPtr.Zero, ref destRect);
+                }
+            }
+        }
+
     }
 }

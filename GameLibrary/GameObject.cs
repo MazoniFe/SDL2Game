@@ -19,6 +19,7 @@ namespace SDLC_.GameLibrary
 
         public GameObject(Resources.GameObjects name, Vector2 position)
         {
+
             this.animationDictionary = Animations.GetAnimationDictionary(name);
             this.animations = Animations.GetAnimations(name);
             this.currentAnimation = new Animation(name, Resources.Animation_State.BOTTOM);

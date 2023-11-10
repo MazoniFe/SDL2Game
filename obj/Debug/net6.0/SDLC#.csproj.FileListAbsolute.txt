@@ -16,3 +16,4 @@ C:\Users\lipem\source\repos\SDLC#\SDLC#\obj\Debug\net6.0\SDLC#.genruntimeconfig.
 C:\Users\lipem\source\repos\SDLC#\SDLC#\obj\Debug\net6.0\ref\SDLC#.dll
 C:\Users\lipem\source\repos\SDLC#\SDLC#\bin\Debug\net6.0\SixLabors.ImageSharp.dll
 C:\Users\lipem\source\repos\SDLC#\SDLC#\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\lipem\source\repos\SDLC#\SDLC#\bin\Debug\net6.0\WindowsInput.dll

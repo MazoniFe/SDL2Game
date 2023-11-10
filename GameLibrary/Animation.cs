@@ -26,6 +26,11 @@ internal class Animation
         return IntPtr.Zero;
     }
 
+    public Sprite GetCurrentFrameSprite()
+    {
+        return sprites[currentFrameIndex];
+    }
+
     public int GetCurrentFrameIndex()
     {
         return currentFrameIndex;
@@ -54,34 +59,36 @@ internal class Animation
                 switch (state)
                 {
                     case Resources.Animation_State.TOP:
-                        animationSprites.Add(new Sprite(Resources.Images_path.PLAYER_TOP_1));
-                        animationSprites.Add(new Sprite(Resources.Images_path.PLAYER_TOP_2));
-                        animationSprites.Add(new Sprite(Resources.Images_path.PLAYER_TOP_3));
-                        animationSprites.Add(new Sprite(Resources.Images_path.PLAYER_TOP_4));
+                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_TOP_1));
+                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_TOP_2));
+                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_TOP_3));
+                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_TOP_4));
                         break;
                     case Resources.Animation_State.LEFT:
-                        animationSprites.Add(new Sprite(Resources.Images_path.PLAYER_LEFT_1));
-                        animationSprites.Add(new Sprite(Resources.Images_path.PLAYER_LEFT_2));
-                        animationSprites.Add(new Sprite(Resources.Images_path.PLAYER_LEFT_3));
-                        animationSprites.Add(new Sprite(Resources.Images_path.PLAYER_LEFT_4));
+                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_LEFT_1));
+                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_LEFT_2));
+                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_LEFT_3));
+                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_LEFT_4));
                         break;
                     case Resources.Animation_State.BOTTOM:
-                        animationSprites.Add(new Sprite(Resources.Images_path.PLAYER_BOTTOM_1));
-                        animationSprites.Add(new Sprite(Resources.Images_path.PLAYER_BOTTOM_2));
-                        animationSprites.Add(new Sprite(Resources.Images_path.PLAYER_BOTTOM_3));
-                        animationSprites.Add(new Sprite(Resources.Images_path.PLAYER_BOTTOM_4));
+                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_BOTTOM_1));
+                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_BOTTOM_2));
+                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_BOTTOM_3));
+                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_BOTTOM_4));
                         break;
-   
                     case Resources.Animation_State.RIGHT:
-                        animationSprites.Add(new Sprite(Resources.Images_path.PLAYER_RIGHT_1));
-                        animationSprites.Add(new Sprite(Resources.Images_path.PLAYER_RIGHT_2));
-                        animationSprites.Add(new Sprite(Resources.Images_path.PLAYER_RIGHT_3));
-                        animationSprites.Add(new Sprite(Resources.Images_path.PLAYER_RIGHT_4));
+                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_RIGHT_1));
+                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_RIGHT_2));
+                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_RIGHT_3));
+                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_RIGHT_4));
+                        break;
+                    case Resources.Animation_State.NULL:
+                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_IDLEBOTTOM_1));
+                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_IDLEBOTTOM_2));
                         break;
                 }
                 break;
         }
-
         return animationSprites;
     }
 }

@@ -1,25 +1,20 @@
 ﻿using SDL2;
 using System;
-
 namespace SDLC
 {
-    using SDL2;
     using SDLC_.GameLibrary;
     using System.Numerics;
 
     class Program
     {
-        public static List<GameObject> gameObjects = new List<GameObject>();
-
-        static void Main(string[] args)
+        public static World world = new World();
+        public static List<GameObject> gameObjects = new List<GameObject>(); static void Main(string[] args)
         {
             View.Init();
-
-            GameObject player = new GameObject(Resources.GameObjects.PLAYER, new Vector2(50,50));
+            GameObject player = new GameObject(Resources.GameObjects.PLAYER, new Vector2(250, 250));
             gameObjects.Add(player);
             while (View.running)
             {
-
                 while (SDL.SDL_PollEvent(out SDL.SDL_Event e) == 1)
                 {
                     switch (e.type)
@@ -52,6 +47,29 @@ namespace SDLC
                             break;
                     }
                 }
+
+                IntPtr keyState = SDL.SDL_GetKeyboardState(out int numKeys);
+
+                bool nenhumaTeclaPressionada = true;
+
+                for (int i = 0; i < numKeys; i++)
+                {
+                    byte keyStateValue = System.Runtime.InteropServices.Marshal.ReadByte(keyState, i);
+                    if (keyStateValue != 0)
+                    {
+                        nenhumaTeclaPressionada = false;
+                        break;
+                    }
+                }
+
+                View.camera.Follow(player);
+
+
+                if (nenhumaTeclaPressionada)
+                {
+                    player.SetCurrentAnimation(General.Inputs.NULL);
+                }
+
                 View.Update();
             }
 

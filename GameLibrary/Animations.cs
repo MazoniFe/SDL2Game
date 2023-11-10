@@ -24,8 +24,8 @@ namespace SDLC_.GameLibrary
             
             }
             return anim;
-        
         }
+
         public static Dictionary<General.Inputs, Animation> GetAnimationDictionary(Resources.GameObjects obj)
         {
             Dictionary<General.Inputs, Animation> animationDictionary = new Dictionary<General.Inputs, Animation>();
@@ -36,8 +36,8 @@ namespace SDLC_.GameLibrary
                     animationDictionary[General.Inputs.LEFT] = new Animation(obj, Resources.Animation_State.LEFT);
                     animationDictionary[General.Inputs.BOTTOM] = new Animation(obj, Resources.Animation_State.BOTTOM);
                     animationDictionary[General.Inputs.RIGHT] = new Animation(obj, Resources.Animation_State.RIGHT);
+                    animationDictionary[General.Inputs.NULL] = new Animation(obj, Resources.Animation_State.NULL);
                     break;
-
             }
             return animationDictionary;
         }

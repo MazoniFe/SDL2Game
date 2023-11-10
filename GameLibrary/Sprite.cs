@@ -2,12 +2,9 @@
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using static SDLC_.GameLibrary.General;
 
 namespace SDLC_.GameLibrary
 {
-
-
     internal class Sprite
     {
         public IntPtr texture;
@@ -37,20 +34,18 @@ namespace SDLC_.GameLibrary
 
         private string GetPathFromEnum(Resources.Images_path path)
         {
-            string jsonContent = File.ReadAllText(GetImageJSONPath() + "\\img_path.json");
+            string jsonContent = File.ReadAllText(General.GetImageJSONPath() + "\\img_path.json");
             dynamic imagePaths = JObject.Parse(jsonContent);
 
             string enumValue = path.ToString();
 
-            if (imagePaths[enumValue] != null)
-            {
-                return GetSpritesPath() + imagePaths[$"{enumValue}"];
-            }
-            else
-            {
-                return ""; 
-            }
+            var parts = enumValue.Split('_');
+
+            string newValueEnum = parts[0] + "-" + parts[1] + "_" + parts[2];
+
+            return General.GetSpritesPath() + General.FindItemByPath(newValueEnum, imagePaths);
         }
+
 
         private IntPtr GetTextureWithAspectRatio(IntPtr originalTexture, int desiredWidth, int desiredHeight, int imageWidth, int imageHeight)
         {
