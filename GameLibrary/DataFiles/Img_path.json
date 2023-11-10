@@ -1,0 +1,22 @@
+{
+  "PLAYER_TOP_1": "\\Character\\TOP_1.png",
+  "PLAYER_TOP_2": "\\Character\\TOP_2.png",
+  "PLAYER_TOP_3": "\\Character\\TOP_3.png",
+  "PLAYER_TOP_4": "\\Character\\TOP_4.png",
+  "PLAYER_LEFT_1": "\\Character\\LEFT_1.png",
+  "PLAYER_LEFT_2": "\\Character\\LEFT_2.png",
+  "PLAYER_LEFT_3": "\\Character\\LEFT_3.png",
+  "PLAYER_LEFT_4": "\\Character\\LEFT_4.png",
+  "PLAYER_BOTTOM_1": "\\Character\\BOTTOM_1.png",
+  "PLAYER_BOTTOM_2": "\\Character\\BOTTOM_2.png",
+  "PLAYER_BOTTOM_3": "\\Character\\BOTTOM_3.png",
+  "PLAYER_BOTTOM_4": "\\Character\\BOTTOM_4.png",
+  "PLAYER_RIGHT_1": "\\Character\\RIGHT_1.png",
+  "PLAYER_RIGHT_2": "\\Character\\RIGHT_2.png",
+  "PLAYER_RIGHT_3": "\\Character\\RIGHT_3.png",
+  "PLAYER_RIGHT_4": "\\Character\\RIGHT_4.png",
+  "TEST_ORANGE": "\\Character\\orange.png",
+  "TEST_BANANA": "\\Character\\banana.png",
+  "TEST_APPLE": "\\Character\\apple.png",
+  "UNDEFINED": "\\Character\\undefined.png"
+}

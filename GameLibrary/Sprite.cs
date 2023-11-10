@@ -1,12 +1,18 @@
 ﻿using SDL2;
-using SDLC;
+using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using static SDLC_.GameLibrary.General;
 
 namespace SDLC_.GameLibrary
 {
+
+
     internal class Sprite
     {
         public IntPtr texture;
         private int imageWidth, imageHeight;
+
         public Sprite(Resources.Images_path imagePath)
         {
             this.texture = GetTextureFromPath(GetPathFromEnum(imagePath));
@@ -31,94 +37,20 @@ namespace SDLC_.GameLibrary
 
         private string GetPathFromEnum(Resources.Images_path path)
         {
-            string pathValue = "";
-            switch(path) {
+            string jsonContent = File.ReadAllText(GetImageJSONPath() + "\\img_path.json");
+            dynamic imagePaths = JObject.Parse(jsonContent);
 
-                //PLAYER
-                case Resources.Images_path.PLAYER_TOP_1:
-                    pathValue = "C:\\Users\\lipem\\source\\repos\\SDLC#\\SDLC#\\Sprites\\Character\\TOP_1.png";
-                    break;
-                case Resources.Images_path.PLAYER_TOP_2:
-                    pathValue = "C:\\Users\\lipem\\source\\repos\\SDLC#\\SDLC#\\Sprites\\Character\\TOP_2.png";
-                    break;
-                case Resources.Images_path.PLAYER_TOP_3:
-                    pathValue = "C:\\Users\\lipem\\source\\repos\\SDLC#\\SDLC#\\Sprites\\Character\\TOP_3.png";
-                    break;
-                case Resources.Images_path.PLAYER_TOP_4:
-                    pathValue = "C:\\Users\\lipem\\source\\repos\\SDLC#\\SDLC#\\Sprites\\Character\\TOP_4.png";
-                    break;
-                case Resources.Images_path.PLAYER_LEFT_1:
-                    pathValue = "C:\\Users\\lipem\\source\\repos\\SDLC#\\SDLC#\\Sprites\\Character\\LEFT_1.png";
-                    break;
-                case Resources.Images_path.PLAYER_LEFT_2:
-                    pathValue = "C:\\Users\\lipem\\source\\repos\\SDLC#\\SDLC#\\Sprites\\Character\\LEFT_2.png";
-                    break;
-                case Resources.Images_path.PLAYER_LEFT_3:
-                    pathValue = "C:\\Users\\lipem\\source\\repos\\SDLC#\\SDLC#\\Sprites\\Character\\LEFT_3.png";
-                    break;
-                case Resources.Images_path.PLAYER_LEFT_4:
-                    pathValue = "C:\\Users\\lipem\\source\\repos\\SDLC#\\SDLC#\\Sprites\\Character\\LEFT_4.png";
-                    break;
-                case Resources.Images_path.PLAYER_BOTTOM_1:
-                    pathValue = "C:\\Users\\lipem\\source\\repos\\SDLC#\\SDLC#\\Sprites\\Character\\BOTTOM_1.png";
-                    break;
-                case Resources.Images_path.PLAYER_BOTTOM_2:
-                    pathValue = "C:\\Users\\lipem\\source\\repos\\SDLC#\\SDLC#\\Sprites\\Character\\BOTTOM_2.png";
-                    break;
-                case Resources.Images_path.PLAYER_BOTTOM_3:
-                    pathValue = "C:\\Users\\lipem\\source\\repos\\SDLC#\\SDLC#\\Sprites\\Character\\BOTTOM_3.png";
-                    break;
-                case Resources.Images_path.PLAYER_BOTTOM_4:
-                    pathValue = "C:\\Users\\lipem\\source\\repos\\SDLC#\\SDLC#\\Sprites\\Character\\BOTTOM_4.png";
-                    break;
-                case Resources.Images_path.PLAYER_RIGHT_1:
-                    pathValue = "C:\\Users\\lipem\\source\\repos\\SDLC#\\SDLC#\\Sprites\\Character\\RIGHT_1.png";
-                    break;
-                case Resources.Images_path.PLAYER_RIGHT_2:
-                    pathValue = "C:\\Users\\lipem\\source\\repos\\SDLC#\\SDLC#\\Sprites\\Character\\RIGHT_2.png";
-                    break;
-                case Resources.Images_path.PLAYER_RIGHT_3:
-                    pathValue = "C:\\Users\\lipem\\source\\repos\\SDLC#\\SDLC#\\Sprites\\Character\\RIGHT_3.png";
-                    break;
-                case Resources.Images_path.PLAYER_RIGHT_4:
-                    pathValue = "C:\\Users\\lipem\\source\\repos\\SDLC#\\SDLC#\\Sprites\\Character\\RIGHT_4.png";
-                    break;
+            string enumValue = path.ToString();
 
-                //teste
-                case Resources.Images_path.ORANGE:
-                    pathValue = "C:\\Users\\lipem\\source\\repos\\SDLC#\\SDLC#\\Sprites\\orange.png";
-                    break;
-                case Resources.Images_path.BANANA:
-                    pathValue = "C:\\Users\\lipem\\source\\repos\\SDLC#\\SDLC#\\Sprites\\banana.png";
-                    break;
-                case Resources.Images_path.APPLE:
-                    pathValue = "C:\\Users\\lipem\\source\\repos\\SDLC#\\SDLC#\\Sprites\\apple.png";
-                    break;
-                default:
-                    pathValue = "C:\\Users\\lipem\\source\\repos\\SDLC#\\SDLC#\\Sprites\\undefined.png";
-                    break;
+            if (imagePaths[enumValue] != null)
+            {
+                return GetSpritesPath() + imagePaths[$"{enumValue}"];
             }
-            return pathValue;
+            else
+            {
+                return ""; 
+            }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         private IntPtr GetTextureWithAspectRatio(IntPtr originalTexture, int desiredWidth, int desiredHeight, int imageWidth, int imageHeight)
         {

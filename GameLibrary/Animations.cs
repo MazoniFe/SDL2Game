@@ -18,7 +18,6 @@ namespace SDLC_.GameLibrary
             List<Animation> anim = new List<Animation>();
             switch(obj) {
                 case Resources.GameObjects.PLAYER:
-                    Console.WriteLine("Entrei aqui");
                     anim.Add(new Animation(obj, Resources.Animation_State.LEFT));
                     anim.Add(new Animation(obj, Resources.Animation_State.BOTTOM));
                     break;

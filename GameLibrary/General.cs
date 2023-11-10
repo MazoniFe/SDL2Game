@@ -18,5 +18,14 @@ namespace SDLC_.GameLibrary
 
             return true;
         }
+
+        public static string GetSpritesPath()
+        {
+            return Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "Sprites");
+        }
+        public static string GetImageJSONPath()
+        {
+            return Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "GameLibrary", "DataFiles");
+        }
     }
 }
