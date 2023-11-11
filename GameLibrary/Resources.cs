@@ -13,7 +13,7 @@ namespace SDLC_.GameLibrary
         public enum Images_path
         {
             // Objetos
-            FRUITS_APPLE, BANANA, ORANGE, UNDEFINED,
+            FRUITS_APPLE_1, FRUITS_BANANA, FRUITS_ORANGE, UNDEFINED,
 
             // Goku
             GOKU_IDLETOP_1, GOKU_IDLELEFT_1, GOKU_IDLELEFT_2, GOKU_IDLERIGHT_1, GOKU_IDLERIGHT_2, GOKU_IDLEBOTTOM_1, GOKU_IDLEBOTTOM_2,
@@ -33,6 +33,6 @@ namespace SDLC_.GameLibrary
         public enum GameObjects { APPLE, BANANA, ORANGE, PLAYER, UNDEFINED }
 
         // Enumeração para os estados de animação.
-        public enum Animation_State { IDLE, LEFT, RIGHT, TOP, BOTTOM, NULL }
+        public enum Animation_State { IDLE, WALK }
     }
 }

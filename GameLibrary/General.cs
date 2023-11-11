@@ -13,13 +13,14 @@ namespace SDLC_.GameLibrary
     internal class General
     {
         // Enumeração para as entradas do jogador.
-        public enum Inputs { TOP, LEFT, RIGHT, BOTTOM, NULL }
+        public enum DIRECTION { TOP, LEFT, RIGHT, BOTTOM, NULL}
 
         // Dimensões dos tiles e sprites no jogo.
         public static int TILE_WIDTH = 64;
         public static int TILE_HEIGHT = 64;
         public static int SPRITE_HEIGHT = 64;
         public static int SPRITE_WIDTH = 64;
+        public static DIRECTION direction = DIRECTION.BOTTOM;
 
         // Método para verificar se dois sprites são iguais.
         public static bool ObjectsAreEqual(Sprite current, Sprite previous)

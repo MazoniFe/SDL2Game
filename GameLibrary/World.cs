@@ -66,5 +66,11 @@ namespace SDLC_.GameLibrary
             // Retornamos a posição na matriz.
             return new Vector2(matrixX, matrixY);
         }
+    
+
+        public World_Tile GetWorldTile(Vector2 tilePosition)
+        {
+            return this.map[(int)tilePosition.X, (int)tilePosition.Y];
+        }
     }
 }

@@ -3,6 +3,8 @@
     "IDLETOP_1": "\\GOKU\\IDLE_TOP_1.png",
     "IDLELEFT_1": "\\GOKU\\IDLE_LEFT_1.png",
     "IDLELEFT_2": "\\GOKU\\IDLE_LEFT_2.png",
+    "IDLERIGHT_1": "\\GOKU\\IDLE_RIGHT_1.png",
+    "IDLERIGHT_2": "\\GOKU\\IDLE_RIGHT_2.png",
     "IDLEBOTTOM_1": "\\GOKU\\IDLE_BOTTOM_1.png",
     "IDLEBOTTOM_2": "\\GOKU\\IDLE_BOTTOM_2.png",
     "TOP_1": "\\GOKU\\TOP_1.png",
@@ -29,11 +31,11 @@
   },
 
   "FRUITS": {
-    "ORANGE": "\\GOKU\\orange.png",
-    "BANANA": "\\GOKU\\banana.png",
-    "APPLE": "\\GOKU\\apple.png"
+    "ORANGE_1": "\\orange.png",
+    "BANANA_1": "\\banana.png",
+    "APPLE_1": "\\apple.png"
   },
   "UNDEFINED": {
-    "UNDEFINED": "\\GOKU\\undefined.png"
+    "UNDEFINED_1": "\\undefined.png"
   }
 }

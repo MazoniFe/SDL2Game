@@ -105,6 +105,11 @@ namespace SDLC_.GameLibrary
                 // Atualiza a animação e a posição do objeto.
                 obj.UpdateAnimation(deltaTime);
                 obj.UpdatePosition();
+                float objPosX = obj.GetPosition().X;
+                float objPosY = obj.GetPosition().Y;
+
+                //ADICIONA AO TILE A FLAG DE QUE HÁ UM OBJETO EM CIMA.
+                Program.world.GetWorldTile(obj.GetWorldPosition()).AddObject();
 
                 // Obtém a posição ajustada pela câmera.
                 Vector2 adjustedPosition = View.camera.GetAdjustedPosition(obj.GetPosition());
@@ -143,11 +148,10 @@ namespace SDLC_.GameLibrary
                 for (int j = 0; j < World.WIDTH; j++)
                 {
                     World_Tile tile = map[i, j];
+                    Program.world.GetWorldTile(new Vector2(i, j)).RemoveObject();
 
-                    // Obtém a posição ajustada pela câmera.
-                    Vector2 adjustedPosition = View.camera.GetAdjustedPosition(new Vector2(j * General.TILE_WIDTH, i * General.TILE_HEIGHT));
-
-                    // Desenha um contorno ao redor do tile.
+                    // Calcula a posição ajustada pela câmera.
+                    Vector2 adjustedPosition = camera.GetAdjustedPosition(new Vector2(j * General.TILE_WIDTH, i * General.TILE_HEIGHT));
                     SDL.SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
                     SDL.SDL_Rect outlineRect = new SDL.SDL_Rect
                     {
@@ -169,6 +173,9 @@ namespace SDLC_.GameLibrary
                     SDL.SDL_RenderCopy(renderer, tile.GetSprite().GetTexture(), IntPtr.Zero, ref destRect);
                 }
             }
+
+
         }
+
     }
 }

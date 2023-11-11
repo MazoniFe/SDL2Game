@@ -11,8 +11,9 @@ namespace SDLC
         public static List<GameObject> gameObjects = new List<GameObject>(); static void Main(string[] args)
         {
             View.Init();
-            GameObject player = new GameObject(Resources.GameObjects.PLAYER, World.GetPosition(0,0));
+            GameObject player = new GameObject(Resources.GameObjects.PLAYER, World.GetPosition(25,25));
             gameObjects.Add(player);
+
             while (View.running)
             {
                 while (SDL.SDL_PollEvent(out SDL.SDL_Event e) == 1)
@@ -34,19 +35,19 @@ namespace SDLC
                             var currentPos = player.GetPosition();
                             if (e.key.keysym.sym == SDL.SDL_Keycode.SDLK_w)
                             {
-                                player.SetPosition(General.Inputs.TOP);
+                                player.SetPosition(General.DIRECTION.TOP);
                             }
                             else if (e.key.keysym.sym == SDL.SDL_Keycode.SDLK_a)
                             {
-                                player.SetPosition(General.Inputs.LEFT);
+                                player.SetPosition(General.DIRECTION.LEFT);
                             }
                             else if (e.key.keysym.sym == SDL.SDL_Keycode.SDLK_s)
                             {
-                                player.SetPosition(General.Inputs.BOTTOM);
+                                player.SetPosition(General.DIRECTION.BOTTOM);
                             }
                             else if (e.key.keysym.sym == SDL.SDL_Keycode.SDLK_d)
                             {
-                                player.SetPosition(General.Inputs.RIGHT);
+                                player.SetPosition(General.DIRECTION.RIGHT);
                             }
                             break;
                     }
@@ -73,7 +74,7 @@ namespace SDLC
                 {
                     if (player.canMove)
                     {
-                        player.SetCurrentAnimation(General.Inputs.NULL);
+                        //player.SetCurrentAnimation(General.direction, Resources.Animation_State.IDLE);
                     }
                 }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SDLC;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,23 +13,21 @@ namespace SDLC_.GameLibrary
     internal class GameObject
     {
         private string name = "";
-        public static double animationSpeed = 0.2f;
+        public static double animationSpeed = 0.5f;
         public float moveSpeed = 3;
         private Vector2 position, targetPosition, worldPosition;
         public bool canMove = true;
-        private List<Animation> animations = new List<Animation>();
-        private Dictionary<General.Inputs, Animation> animationDictionary = new Dictionary<General.Inputs, Animation>();
-        private Animation currentAnimation = new Animation(Resources.GameObjects.UNDEFINED, Resources.Animation_State.IDLE);
+        private Dictionary<(General.DIRECTION, Resources.Animation_State), Animation> animationDictionary = new Dictionary<(General.DIRECTION, Resources.Animation_State), Animation>();
+        private Animation currentAnimation = new Animation(Resources.GameObjects.UNDEFINED, Resources.Animation_State.IDLE, General.DIRECTION.BOTTOM);
 
         // Construtor que inicializa um objeto com um nome e posição.
         public GameObject(Resources.GameObjects name, Vector2 position)
         {
             // Obtém o dicionário de animações e a lista de animações para o objeto.
             this.animationDictionary = Animations.GetAnimationDictionary(name);
-            this.animations = Animations.GetAnimations(name);
 
             // Define a animação inicial como a animação de movimento para baixo.
-            this.currentAnimation = new Animation(name, Resources.Animation_State.BOTTOM);
+            this.currentAnimation = new Animation(name, Resources.Animation_State.IDLE, General.DIRECTION.BOTTOM);
 
             // Inicializa as posições do objeto no mundo.
             this.position = position;
@@ -62,36 +61,50 @@ namespace SDLC_.GameLibrary
         }
 
         // Método para definir a animação atual com base na entrada do jogador.
-        public void SetCurrentAnimation(General.Inputs input)
+        public void SetCurrentAnimation(General.DIRECTION direction, Resources.Animation_State state)
         {
-            this.currentAnimation = animationDictionary[input];
+            this.currentAnimation = animationDictionary[(direction, state)];
         }
 
         // Método para definir a posição alvo com base na entrada do jogador.
-        public void SetPosition(General.Inputs key)
+        public void SetPosition(General.DIRECTION key)
         {
             if (!canMove) return;
 
             var currentX = (int)worldPosition.X;
             var currentY = (int)worldPosition.Y;
+            Program.world.GetWorldTile(this.GetWorldPosition()).RemoveObject();
+            World_Tile tile;
 
             switch (key)
             {
-                case General.Inputs.TOP:
+                case General.DIRECTION.TOP:
                     targetPosition = new Vector2(currentX, currentY - 1);
-                    SetCurrentAnimation(key);
+                    tile = Program.world.GetWorldTile(targetPosition);
+                    if (tile.HasObject()) return;
+                    General.direction = General.DIRECTION.TOP;
+                    SetCurrentAnimation(key, Resources.Animation_State.WALK);
                     break;
-                case General.Inputs.LEFT:
+                case General.DIRECTION.LEFT:
                     targetPosition = new Vector2(currentX - 1, currentY);
-                    SetCurrentAnimation(key);
+                    tile = Program.world.GetWorldTile(targetPosition);
+                    if (tile.HasObject()) return;
+                    General.direction = General.DIRECTION.LEFT;
+                    SetCurrentAnimation(key, Resources.Animation_State.WALK);
                     break;
-                case General.Inputs.BOTTOM:
+                case General.DIRECTION.BOTTOM:
                     targetPosition = new Vector2(currentX, currentY + 1);
-                    SetCurrentAnimation(key);
+                    tile = Program.world.GetWorldTile(targetPosition);
+                    if (tile.HasObject()) return;
+                    General.direction = General.DIRECTION.BOTTOM;
+                    SetCurrentAnimation(key, Resources.Animation_State.WALK);
                     break;
-                case General.Inputs.RIGHT:
+                case General.DIRECTION.RIGHT:
                     targetPosition = new Vector2(currentX + 1, currentY);
-                    SetCurrentAnimation(key);
+                    tile = Program.world.GetWorldTile(targetPosition);
+                    if (tile.HasObject()) return;
+                    General.direction = General.DIRECTION.RIGHT;
+                    SetCurrentAnimation(key, Resources.Animation_State.WALK);
                     break;
                 default:
                     break;
@@ -104,15 +117,19 @@ namespace SDLC_.GameLibrary
         {
             // Atualiza o temporizador de animação.
             View.animationTimer += deltaTime;
+            int frameCount = currentAnimation.GetFrameCount();
 
-            // Verifica se é hora de avançar para o próximo quadro da animação.
-            if (View.animationTimer >= animationSpeed)
+            if(frameCount > 0.1f)
             {
-                int currentFrameIndex = currentAnimation.GetCurrentFrameIndex();
-                currentFrameIndex = (currentFrameIndex + 1) % currentAnimation.GetFrameCount();
-                currentAnimation.SetCurrentFrameIndex(currentFrameIndex);
-                View.animationTimer = 0.0;
+                if (View.animationTimer >= animationSpeed)
+                {
+                    int currentFrameIndex = currentAnimation.GetCurrentFrameIndex();
+                    currentFrameIndex = (currentFrameIndex + 1) % currentAnimation.GetFrameCount();
+                    currentAnimation.SetCurrentFrameIndex(currentFrameIndex);
+                    View.animationTimer = 0.0;
+                }
             }
+
         }
 
         // Método para atualizar a posição do objeto.
@@ -131,11 +148,17 @@ namespace SDLC_.GameLibrary
                 {
                     this.worldPosition = targetPosition;
                     canMove = true;
+                    SetCurrentAnimation(General.direction, Resources.Animation_State.IDLE);
                 }
 
                 // Converte a posição no mundo para a posição em pixels.
                 this.position = World.GetPosition(worldPosition.X, worldPosition.Y);
             }
+        }
+    
+        public Vector2 GetWorldPosition()
+        {
+            return this.worldPosition;
         }
     }
 }

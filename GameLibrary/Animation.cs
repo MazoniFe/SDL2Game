@@ -8,9 +8,9 @@ internal class Animation
     private int currentFrameIndex = 0;
 
     // Construtor que inicializa uma animação com base no tipo de objeto e estado.
-    public Animation(Resources.GameObjects obj, Resources.Animation_State state)
+    public Animation(Resources.GameObjects obj, Resources.Animation_State state, General.DIRECTION direction)
     {
-        this.sprites = GetAnimationSprites(obj, state);
+        this.sprites = GetAnimationSprites(obj, state, direction);
     }
 
     // Método para obter a lista de sprites da animação.
@@ -58,45 +58,77 @@ internal class Animation
     }
 
     // Método privado para obter os sprites da animação com base no tipo de objeto e estado.
-    private List<Sprite> GetAnimationSprites(Resources.GameObjects obj, Resources.Animation_State state)
+    private List<Sprite> GetAnimationSprites(Resources.GameObjects obj, Resources.Animation_State state, General.DIRECTION direction)
     {
         List<Sprite> animationSprites = new List<Sprite>();
 
         switch (obj)
         {
             case Resources.GameObjects.PLAYER:
-                switch (state)
+                switch (direction)
                 {
-                    case Resources.Animation_State.TOP:
-                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_TOP_1));
-                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_TOP_2));
-                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_TOP_3));
-                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_TOP_4));
+                    case General.DIRECTION.TOP:
+                        switch (state)
+                        {
+                            case Resources.Animation_State.IDLE:
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_IDLETOP_1));
+                                break;
+                            case Resources.Animation_State.WALK:
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_TOP_1));
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_TOP_2));
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_TOP_3));
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_TOP_4));
+                                break;
+                        }
                         break;
-                    case Resources.Animation_State.LEFT:
-                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_LEFT_1));
-                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_LEFT_2));
-                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_LEFT_3));
-                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_LEFT_4));
+                    case General.DIRECTION.LEFT:
+                        switch (state)
+                        {
+                            case Resources.Animation_State.IDLE:
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_IDLELEFT_1));
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_IDLELEFT_2));
+                                break;
+                            case Resources.Animation_State.WALK:
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_LEFT_1));
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_LEFT_2));
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_LEFT_3));
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_LEFT_4));
+                                break;
+                        }
                         break;
-                    case Resources.Animation_State.BOTTOM:
-                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_BOTTOM_1));
-                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_BOTTOM_2));
-                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_BOTTOM_3));
-                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_BOTTOM_4));
+                    case General.DIRECTION.BOTTOM:
+                        switch (state)
+                        {
+                            case Resources.Animation_State.IDLE:
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_IDLEBOTTOM_1));
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_IDLEBOTTOM_2));
+                                break;
+                            case Resources.Animation_State.WALK:
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_BOTTOM_1));
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_BOTTOM_2));
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_BOTTOM_3));
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_BOTTOM_4));
+                                break;
+                        }
                         break;
-                    case Resources.Animation_State.RIGHT:
-                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_RIGHT_1));
-                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_RIGHT_2));
-                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_RIGHT_3));
-                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_RIGHT_4));
-                        break;
-                    case Resources.Animation_State.NULL:
-                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_IDLEBOTTOM_1));
-                        animationSprites.Add(new Sprite(Resources.Images_path.GOKU_IDLEBOTTOM_2));
+                    case General.DIRECTION.RIGHT:
+                        switch (state)
+                        {
+                            case Resources.Animation_State.IDLE:
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_IDLERIGHT_1));
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_IDLERIGHT_2));
+                                break;
+                            case Resources.Animation_State.WALK:
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_RIGHT_1));
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_RIGHT_2));
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_RIGHT_3));
+                                animationSprites.Add(new Sprite(Resources.Images_path.GOKU_RIGHT_4));
+                                break;
+                        }
                         break;
                 }
                 break;
+
         }
         return animationSprites;
     }
