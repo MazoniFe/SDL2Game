@@ -35,7 +35,7 @@
     "BANANA_1": "\\banana.png",
     "APPLE_1": "\\apple.png"
   },
-  "UNDEFINED": {
+  "OBJECT": {
     "UNDEFINED_1": "\\undefined.png"
   }
 }

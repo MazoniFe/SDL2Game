@@ -13,7 +13,7 @@ namespace SDLC_.GameLibrary
         public enum Images_path
         {
             // Objetos
-            FRUITS_APPLE_1, FRUITS_BANANA, FRUITS_ORANGE, UNDEFINED,
+            FRUITS_APPLE_1, FRUITS_BANANA, FRUITS_ORANGE, OBJECT_UNDEFINED_1,
 
             // Goku
             GOKU_IDLETOP_1, GOKU_IDLELEFT_1, GOKU_IDLELEFT_2, GOKU_IDLERIGHT_1, GOKU_IDLERIGHT_2, GOKU_IDLEBOTTOM_1, GOKU_IDLEBOTTOM_2,
@@ -23,7 +23,7 @@ namespace SDLC_.GameLibrary
             GOKU_RIGHT_1, GOKU_RIGHT_2, GOKU_RIGHT_3, GOKU_RIGHT_4,
 
             // Ambiente
-            ENV_GRASS_1, ENV_GROUND_1
+            ENV_GRASS_1, ENV_GROUND_1,
         }
 
         // Enumeração para os caminhos das imagens dos jogadores.

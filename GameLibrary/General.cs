@@ -46,6 +46,11 @@ namespace SDLC_.GameLibrary
             return Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "GameLibrary", "DataFiles");
         }
 
+        public static string GetFontsPath()
+        {
+            return Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "GameLibrary", "DataFiles", "Fonts");
+        }
+
         // Método para encontrar um item em um objeto JSON com base no caminho especificado.
         public static string FindItemByPath(string path, JObject jsonObject)
         {

@@ -13,6 +13,8 @@ internal class Animation
         this.sprites = GetAnimationSprites(obj, state, direction);
     }
 
+
+
     // Método para obter a lista de sprites da animação.
     public List<Sprite> GetSprites()
     {
@@ -128,7 +130,12 @@ internal class Animation
                         break;
                 }
                 break;
-
+            case Resources.GameObjects.APPLE:
+                animationSprites.Add(new Sprite(Resources.Images_path.FRUITS_APPLE_1));
+                break;
+            default:
+                animationSprites.Add(new Sprite(Resources.Images_path.OBJECT_UNDEFINED_1));
+                break;
         }
         return animationSprites;
     }
