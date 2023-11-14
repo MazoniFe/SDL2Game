@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using SDLC;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -101,6 +102,17 @@ namespace SDLC_.GameLibrary
 
             // Move o ponto em direção ao alvo com uma distância máxima delta.
             return current + vector / magnitude * maxDistanceDelta;
+        }
+
+
+        public static Player GetLocalPlayer()
+        {
+            Player player = null;
+            foreach(Player p in Program.entities)
+            {
+                if (p.GetIsLocal()) player = p;
+            }
+            return player;
         }
     }
 }

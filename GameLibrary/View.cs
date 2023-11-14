@@ -1,5 +1,6 @@
 ﻿using SDL2;
 using SDLC;
+using System;
 using System.Numerics;
 
 namespace SDLC_.GameLibrary
@@ -87,6 +88,7 @@ namespace SDLC_.GameLibrary
             ClearRenderer();
             RenderWorld();
             RenderGameObjects();
+            RenderEntities();
             PresentRenderer();
         }
 
@@ -124,8 +126,17 @@ namespace SDLC_.GameLibrary
             {
                 UpdateObjectPosition(obj);
                 RenderObjectTexture(obj);
-                RenderObjectText(obj);
+            }
+        }
 
+        public static void RenderEntities()
+        {
+            foreach (Entity entity in Program.entities)
+            {
+                UpdateObjectPosition(entity);
+                RenderObjectTexture(entity);
+                RenderEntityHealth(entity);
+                RenderObjectText(entity);
             }
         }
 
@@ -167,26 +178,68 @@ namespace SDLC_.GameLibrary
         {
             string text = obj.GetName();
 
-            if (text == null) return;
-            IntPtr textSurface = SDL_ttf.TTF_RenderText_Blended(font, text, new SDL.SDL_Color { r = 255, g = 255, b = 255, a = 255 });
-            IntPtr textTexture = SDL.SDL_CreateTextureFromSurface(renderer, textSurface);
-            int textWidth, textHeight;
-            SDL_ttf.TTF_SizeText(font, text, out textWidth, out textHeight);
+            if (text != null && obj is Player)
+            {
+                IntPtr textSurface = SDL_ttf.TTF_RenderText_Blended(font, text, new SDL.SDL_Color { r = 255, g = 255, b = 255, a = 255 });
+                IntPtr textTexture = SDL.SDL_CreateTextureFromSurface(renderer, textSurface);
+                int textWidth, textHeight;
+                SDL_ttf.TTF_SizeText(font, text, out textWidth, out textHeight);
+
+                Vector2 adjustedPosition = View.camera.GetAdjustedPosition(obj.GetPosition());
+
+                SDL.SDL_Rect textDestRect = new SDL.SDL_Rect
+                {
+                    x = (int)adjustedPosition.X + (General.SPRITE_WIDTH - textWidth) / 2,
+                    y = (int)adjustedPosition.Y - 30,
+                    w = textWidth,
+                    h = textHeight
+                };
+
+                SDL.SDL_RenderCopy(renderer, textTexture, IntPtr.Zero, ref textDestRect);
+
+                SDL.SDL_FreeSurface(textSurface);
+                SDL.SDL_DestroyTexture(textTexture);
+            }
+        }
+
+
+        private static void RenderEntityHealth(Entity obj)
+        {
+            int maxHealth = obj.GetMaxHealth();  // Defina a quantidade máxima de vida do personagem
+            int currentHealth = obj.GetCurrentHealth();  // Substitua por seu método real para obter a vida do personagem
+
+            // Defina as dimensões do retângulo da barra de vida
+            float barWidth = General.SPRITE_WIDTH * 0.85f;
+            int barHeight = 7;
+            int barPadding = 2;
+
+            // Calcule a largura proporcional à vida atual
+            int currentBarWidth = (int)((float)currentHealth / maxHealth * barWidth);
 
             Vector2 adjustedPosition = View.camera.GetAdjustedPosition(obj.GetPosition());
+            int barX = (int)adjustedPosition.X + (General.SPRITE_WIDTH - currentBarWidth) / 2;
 
-            SDL.SDL_Rect textDestRect = new SDL.SDL_Rect
+            // Desenhe o fundo da barra de vida
+            SDL.SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+            SDL.SDL_Rect backgroundRect = new SDL.SDL_Rect
             {
-                x = (int)adjustedPosition.X + (General.SPRITE_WIDTH - textWidth) / 2,
-                y = (int)adjustedPosition.Y - 20,
-                w = textWidth,
-                h = textHeight
+                x = barX,
+                y = (int)adjustedPosition.Y - barHeight - barPadding,
+                w = (int)barWidth,
+                h = barHeight
             };
+            SDL.SDL_RenderFillRect(renderer, ref backgroundRect);
 
-            SDL.SDL_RenderCopy(renderer, textTexture, IntPtr.Zero, ref textDestRect);
-
-            SDL.SDL_FreeSurface(textSurface);
-            SDL.SDL_DestroyTexture(textTexture);
+            // Desenhe a barra de vida atual
+            SDL.SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+            SDL.SDL_Rect healthRect = new SDL.SDL_Rect
+            {
+                x = barX,
+                y = (int)adjustedPosition.Y - barHeight - barPadding,
+                w = currentBarWidth,
+                h = barHeight
+            };
+            SDL.SDL_RenderFillRect(renderer, ref healthRect);
         }
 
         public static void RenderWorld()
