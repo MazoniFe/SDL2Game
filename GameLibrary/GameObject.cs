@@ -24,21 +24,20 @@ namespace SDLC_.GameLibrary
         private Dictionary<(General.DIRECTION, Resources.Animation_State), Animation> animationDictionary = new Dictionary<(General.DIRECTION, Resources.Animation_State), Animation>();
         private Animation currentAnimation = new Animation(Resources.GameObjects.UNDEFINED, Resources.Animation_State.IDLE, General.DIRECTION.BOTTOM);
 
-        private General.DIRECTION direction = General.DIRECTION.BOTTOM;
+        private General.DIRECTION direction;
 
         // Construtor que inicializa um objeto com um nome e posição.
         public GameObject(Resources.GameObjects name, Vector2 position)
         {
             // Obtém o dicionário de animações e a lista de animações para o objeto.
             this.animationDictionary = Animations.GetAnimationDictionary(name);
-
             // Define a animação inicial como a animação de movimento para baixo.
             this.currentAnimation = new Animation(name, Resources.Animation_State.IDLE, direction);
-
             // Inicializa as posições do objeto no mundo.
             this.position = position;
             this.worldPosition = World.PixelToMatrixPosition((int)position.X, (int)position.Y);
             this.targetPosition = worldPosition;
+            this.direction = General.DIRECTION.BOTTOM;
             Program.world.GetWorldTile(this.worldPosition).AddObject();
         }
 
@@ -82,22 +81,22 @@ namespace SDLC_.GameLibrary
             {
                 case General.DIRECTION.TOP:
                     targetPosition = new Vector2(currentX, currentY - 1);
-                    direction = General.DIRECTION.TOP;
+                    direction = key;
                     SetCurrentAnimation(key, Resources.Animation_State.WALK);
                     break;
                 case General.DIRECTION.LEFT:
                     targetPosition = new Vector2(currentX - 1, currentY);
-                    direction = General.DIRECTION.LEFT;
+                    direction = key;
                     SetCurrentAnimation(key, Resources.Animation_State.WALK);
                     break;
                 case General.DIRECTION.BOTTOM:
                     targetPosition = new Vector2(currentX, currentY + 1);
-                    direction = General.DIRECTION.BOTTOM;
+                    direction = key;
                     SetCurrentAnimation(key, Resources.Animation_State.WALK);
                     break;
                 case General.DIRECTION.RIGHT:
                     targetPosition = new Vector2(currentX + 1, currentY);
-                    direction = General.DIRECTION.RIGHT;
+                    direction = key;
                     SetCurrentAnimation(key, Resources.Animation_State.WALK);
                     break;
                 default:
@@ -136,7 +135,7 @@ namespace SDLC_.GameLibrary
 
             if (Vector2.Distance(this.worldPosition, targetPosition) == 0f)
             {
-                SetCurrentAnimation(General.direction, Resources.Animation_State.IDLE);
+                SetCurrentAnimation(direction, Resources.Animation_State.IDLE);
                 canMove = true;
             }
             else canMove = false;
